@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QQ空间时光轴特效</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: url("img/1.jpg") #1c0c0f center 0 no-repeat fixed;
+        }
+        .top{
+            width: 100%;
+            height: 41px;
+            position: fixed;
+            top: 0px;
+            background:#001e3b;
+            z-index: 99;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+        }
+        .header{
+            width: 960px;
+            height: 200px;
+            margin: 0px auto;
+            background: rgba(255,255,255,0.2);
+        }
+        .container{
+            width: 960px;
+            margin: 0px auto;
+            position: relative;
+        }
+        .scrubber{
+            width: 47px;
+            min-height: 200px;
+            position: absolute;
+            top: 29px;
+            left: 0px;
+            z-index: 999;
+        }
+        .content{
+            min-height: 1000px;
+            background: url("img/spine.png") repeat-y 121px 0;
+            padding-top: 50px;
+            padding-left: 160px;
+            position: relative;
+        }
+        .scrubber a{
+            display: block;
+            height: 26px;
+            line-height: 26px;
+            font-size: 12px;
+            border-right: 2px solid #c8c8c8;
+            border-right-color: rgba(200,200,200,0.5);
+            padding-right: 5px;
+            color: #a5a5a5;
+            text-decoration: none;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+            text-align: right;
+        }
+        .scrubber a:hover,
+        .scrubber a.current{
+            border-right-color: #7ebad0;
+            color:#7ebad0;
+            font-weight: bold;
+        }
+        .scrubber a:hover{
+            text-decoration: underline;
+        }
+        .scrubber a.current:hover{
+            text-decoration: none;
+        }
+        .content_year{
+            height: 30px;
+            line-height: 30px;
+            color: #a5a5a5;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+            font-size: 14px;
+            font-weight: bold;
+            position: relative;
+            left: -90px;
+            clear: both;
+        }
+        .content_item{
+            width: 370px;
+            min-height: 300px;
+            background: #fff;
+            border-radius: 4px;
+            margin: 20px 30px 0 0;
+            position: relative;
+            color: #888;
+        }
+        .content_item_icon_arrow{
+            position: absolute;
+            height: 0px;
+            border-color: transparent #fff transparent transparent;
+            border-width: 10px 10px 10px 0px;
+            border-style: dashed solid dashed dashed;
+            left: -10px;
+            top: 20px;
+            width: 0px;
+        }
+        .content_item_icon_dot{
+            width: 11px;
+            height: 11px;
+            border-radius: 11px;
+            background: #fff;
+            position: absolute;
+            left: -43px;
+            top: 25px;
+        }
+        .content_item_icon_dot_child{
+            width: 7px;
+            height: 7px;
+            border-radius: 7px;
+            background: #b3dae9;
+            position: absolute;
+            left: 2px;
+            top: 2px;
+        }
+        .content_item_head{
+            padding: 15px;
+            padding-bottom: 0px;
+        }
+        .content_item_head_title{
+            height: 46px;
+            line-height: 46px;
+            font-size: 28px;
+            padding: 0 0 10px 56px;
+            position: relative;
+        }
+        .content_item_head_title_lunar{
+            width: 46px;
+            height: 46px;
+            background: #b3dae9;
+            border-radius: 8px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            overflow: hidden;
+            color: #fff;
+            font-size: 27px;
+            line-height: 23px;
+        }
+        .content_item_head_intro{
+            font-size: 14px;
+            line-height: 22px;
+            padding: 0px 15px;
+            margin-bottom: 10px;
+        }
+        .ui_icon{
+            width: 15px;
+            height: 15px;
+            display: inline-block;
+            background-repeat: no-repeat;
+            font-size: 0px;
+            overflow: hidden;
+            background-image: url(img/timeline.png);
+            margin-left: 5px;
+            vertical-align: bottom;
+        }
+        .quote_after{
+            background-position: -986px -102px;
+        }
+        .quote_before{
+            background-position: -986px -85px;
+        }
+        .content_item_media{
+            height:277px;
+            overflow: hidden;
+            padding-bottom: 10px;
+        }
+        .content_item_footer{
+            padding: 10px 15px;
+            margin: 0px 15px;
+            border-top: 1px solid #d6d6d6;
+            font-size: 12px;
+            line-height: 20px;
+        }
+        .content_item_footer_info a{
+            color: #b2b2b2;
+            text-decoration: none;
+            padding-right: 10px;
+            display: inline-block;
+            height: 20px;
+        }
+        .icon_pin,
+        .icon_zan{
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            background-repeat: no-repeat;
+            font-size: 0px;
+            overflow: hidden;
+            background-image: url(img/timeline.png);
+            vertical-align: bottom;
+        }
+        .icon_zan{
+            background-position: -883px -21px;
+        }
+        .icon_pin{
+            background-position: -897px -42px;
+        }
+        .content_item_footer_like{
+            padding-top: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="top"></div>
+    <div class="header"></div>
+    <div class="container">
+        <div class="scrubber">
+            <a href="#" class="scrubber_year current">2014</a>
+            <a href="#" class="scrubber_month">3月</a>
+            <a href="#" class="scrubber_month">2月</a>
+        </div>
+        <div class="content">
+            <div class="content_year">2014</div>
+            <div class="content_year">3月</div>
+            <div class="content_item">
+                <div class="content_item_icon_arrow">...</div>
+                <div class="content_item_icon_dot">
+                    <div class="content_item_icon_dot_child"></div>
+                </div>
+                <div class="content_item_head">
+                    <div class="content_item_head_title">
+                        <div class="content_item_head_title_lunar">三<br>&nbsp;&nbsp;&nbsp;十</div>
+                        2014-03-30
+                    </div>
+                    <div class="content_item_head_intro">
+                        <i class="ui_icon quote_before"></i>
+                        咱们Qzone有福利！即日起，在QQ空间预约《逆战》最新资料片，就能100%获得丰厚游戏大礼包——还有iPad mini、雷蛇键鼠套餐等实物大奖等你来拿！还等什么？马上预约吧
+                        <i class="ui_icon quote_after"></i>
+                    </div>
+                </div>
+                <div class="content_item_media">
+                    <img src="img/psb.jpeg" width="370px">
+                </div>
+                <div class="content_item_footer">
+                    <div class="content_item_footer_info">
+                        <a href="#" title="赞"><i class="icon_zan"></i>(199)</a>
+                        <a href="#" title="评论"><i class="icon_pin"></i>(2199)</a>
+                    </div>
+                    <div class="content_item_footer_like">
+                        2.5万人觉得赞
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        body{
+            margin: 0 auto;
+            padding: 0;
+        }
+        #hpn{
+            background: #e8e8e8;
+            height: 0;
+            text-align: center;
+            margin: 0 auto;
+            height: auto;
+        }
+        #pn{
+            background: gray;
+            height: 100px;
+            text-align: center;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="hpn">
+        我是广告啦啦啦！
+    </div>
+    <div id="pn">欢迎光临</div>
+    <script type="text/javascript">
+        var hpn = document.getElementById("hpn");
+        var h = 0;
+        var H =300;
+        var timer_1 = setInterval(function(){
+            if( h < 300 ){
+                h += 5;
+                hpn.style.height = h + 'px';
+            }
+            else{
+                clearInterval(timer_1);
+                var timer_2 = setInterval(function(){
+                    if( H > 0){
+                        H -= 5;
+                        hpn.style.height = H + 'px';
+                    }
+                    else{
+                        clearInterval(timer_2);
+                        hpn.style.display = "none";
+                    }
+                },30);
+            }
+        },30);
+    </script>
+</body>
+</html>
