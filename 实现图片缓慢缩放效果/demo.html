@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        div{
+            width:1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <img  src="img/2.jpg" id="myImage"/><br>
+        <input type="button" id="max" value="放大" />
+        <input type="button" id="min" value="缩小" />
+    </div>
+<script>
+    window.onload = function() {
+        var myImg = document.getElementById("myImage");
+        var maxBtn = document.getElementById("max");
+        var maxWidth = myImg.width * 2;
+        var minWidth = myImg.width * 0.5;
+        maxBtn.onclick = function(){
+            maxFun();
+        }
+        var maxFun = function(){
+            var endHeight = myImg.height * 1.3;
+            var maxTimer = setInterval(function(){
+                if(myImg.height < endHeight ){
+                    if(myImg.width < maxWidth ){
+                        myImg.width = myImg.width*1.05;
+                        myImg.height = myImg.height*1.05;
+                    }
+                    else{
+                        clearInterval(maxTimer);
+                        alert("已经到达最大值了！");
+                    }
+                }
+                else{
+                    clearInterval(maxTimer);
+                }
+            },20);
+        }
+
+        var minBtn = document.getElementById("min");
+        minBtn.onclick = function(){
+            minFun();
+        }
+        function minFun(){
+            var endHeight = myImg.height * 0.7;
+            var maxTimer = setInterval(function(){
+                if(myImg.height > endHeight ){
+                    if(myImg.width > minWidth ){
+                        myImg.width = myImg.width*0.95;
+                        myImg.height = myImg.height*0.95;
+                    }
+                    else{
+                        clearInterval(maxTimer);
+                        alert("已经到达最小值了！");
+                    }
+                }
+                else{
+                    clearInterval(maxTimer);
+                }
+            },20);
+        }
+    }
+</script>
+</body>
+</html>

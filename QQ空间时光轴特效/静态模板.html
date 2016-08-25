@@ -205,19 +205,32 @@
         .content_item_footer_like{
             padding-top: 5px;
         }
-
+        .hide{
+            display: none;
+        }
     </style>
 </head>
 <body>
+
+<div class="hide">
+    <div id="tpl_scrubber_year">
+        <a href="#" class="scrubber_year current">{year}</a>
+        {list}
+    </div>
+    <div id="tpl_scrubber_month">
+        <a href="#" class="scrubber_year current">{month}月</a>
+    </div>
+</div>
+
     <div class="top"></div>
     <div class="header"></div>
     <div class="container">
-        <div class="scrubber">
+        <div class="scrubber" id="scrubber">
             <a href="#" class="scrubber_year current">2014</a>
             <a href="#" class="scrubber_month">3月</a>
             <a href="#" class="scrubber_month">2月</a>
         </div>
-        <div class="content">
+        <div class="content" id="content">
             <div class="content_year">2014</div>
             <div class="content_year">3月</div>
             <div class="content_item">
@@ -251,5 +264,54 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="js/data.js"></script>
+    <script type="text/javascript" src="js/GetLunarDay.js"></script>
+    <script type="text/javascript">
+        //通用函数
+        var g = function (id){
+            return document.getElementById(id);
+        }
+        var g_tpl = function(id){
+            return g('tpl_'+id).innerHTML;
+        }
+
+        //格式化数据
+        var list = {};
+        for (var i = 0 ; i < data.length; i++){
+            var date = new Date( data[i].date );
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var lunar = GetLunarDateString(date);
+
+            if( !list[year] ){list[year] = {}; }
+            if( !list[year][month] ){ list[year][month] = {}; }
+
+            var item = data[i];
+            item.lunar = lunar[0] + '<br>&nbsp;&nbsp;&nbsp;' + lunar[1];
+            item.year = year;
+            item.month = month;
+            item.like_format = item.like < 10000 ? item.like : (item.like/10000).toFixed(1) + '万';
+            list[year][month].push( item );
+        }
+
+        //时序菜单 HTML 生成
+        var html_scrubber_list = [];
+        var tpl_year = g_tpl( 'scrubber_year' );
+        var tpl_month = g_tpl( 'scrubber_month' );
+
+        for( y in list ){
+            var html_year = tpl_year.replace( /\{year\}/g,y );
+
+            var html_month = [];
+            for ( m in list[y] ){
+                html_month.unshift(tpl_month.replace( /\{month\}/g,m ));
+            }
+
+            html_year = html_year.replace( /\{list\}/g, html_month.join('') );
+
+            html_scrubber_list.push( html_year );
+        }
+        g('scrubber').innerHTML = html_scrubber_list.join('');
+    </script>
 </body>
 </html>
