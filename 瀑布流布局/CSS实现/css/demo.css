@@ -1,4 +1,6 @@
 #main{
+    -webkit-column-width:202px;
+    -moz-column-width: 202px;
 }
 .box{
     padding: 10px 0 0 15px;
