@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>高考倒计时</title>
+	</head>
+	<body>
+		<div id="show"></div>
+		<script type="text/javascript">
+			var curTime = new Date();
+			var endTime = new Date('2017,6,6');
+			var leftTime = Math.ceil((endTime.getTime()-curTime.getTime())/(24*60*60*1000));
+			document.getElementById("show").innerHTML = leftTime;
+		</script>
+	</body>
+</html>
