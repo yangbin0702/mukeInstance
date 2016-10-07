@@ -31,7 +31,7 @@
         </div>
     </div>
     <div class="suggest" id="search-suggest" style="display:none;">
-        <ul>
+        <ul id="search-result">
             <li>搜索结果1</li>
             <li>搜索结果2</li>
             <li>搜索结果3</li>
@@ -39,11 +39,21 @@
     </div>
     <script type="text/javascript">
         $('#search-input').bind('keyup',function(){
-            $("#search-suggest").show().css({
-                top:$('.search-form').offset().top+$('.search-form').height()+10,
-                left:$('.search-form').offset().left,
-                position:'absolute'
-            });
+            var jqueryInput = $(this);
+            var searchText = jqueryInput.val();
+            $.get('http://api.bing.com/qsonhs.aspx?q='+searchText,function(){
+                var d = d.AS.Results[0].Suggests;
+                var html='';
+                for(var i =0;i< d.length;i++){
+                    html +='<li>'+d[i].Txt+'</li>';
+                }
+                $('#search-result').html(html);
+                $("#search-suggest").show().css({
+                    top:$('.search-form').offset().top+$('.search-form').height()+10,
+                    left:$('.search-form').offset().left,
+                    position:'absolute'
+                });
+            },'json');
         })
     </script>
 </body>
